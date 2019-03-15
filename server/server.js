@@ -11,7 +11,7 @@ app.use(bodyParser.json()); // needed for angular requests
 app.use(express.static('build'));
 
 /** ---------- ROUTES ---------- **/
-app.use('/word', wordRouter);
+app.use('/words', wordRouter);
 
 /** ---------- START SERVER ---------- **/
 app.listen(port, function () {
