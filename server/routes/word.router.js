@@ -21,8 +21,8 @@ router.get('/words', (req, res) => {
     // });
 });
 
-unirest.get("https://wordsapiv1.p.rapidapi.com/words/?random=true")
-    .header("X-RapidAPI-Key", WORDS_API_KEY)
+unirest.get("https://wordsapiv1.p.rapidapi.com/words/incredible/definitions")
+    .header("X-RapidAPI-Key", process.env.WORDS_API_KEY)
     .end(function (result) {
         console.log(result.status, result.headers, result.body);
     });
