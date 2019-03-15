@@ -5,27 +5,19 @@ const unirest = require('unirest');
 const express = require('express');
 const router = express.Router();
 
-router.get('/words', (req, res) => {
-    
-    // axios({
-    //     method: 'GET',
-    //     url: "https://wordsapiv1.p.rapidapi.com/words/?random=true",
-    //     params: {
-    //         key: process.env.WORDS_API_KEY,
-    //     }
-    // }).then( response => {
-    //     console.log('response', response.data);
-    //     res.sendStatus(200);
-    // }).catch( error => {
-    //     console.log('error with getting WORDS API', error);
-    // });
+
+// https://stackoverflow.com/questions/52561002/make-unirest-get-request-with-node-js-express
+router.get('/', (req, res) => {
+    console.log('in get /word');
+    unirest.get("https://wordsapiv1.p.rapidapi.com/words/?random=true")
+        .header("X-RapidAPI-Key", process.env.WORDS_API_KEY)
+        .end((result) => {
+            console.log(result.status, result.headers, result.body);
+            res.send(result.body);
+        });
 });
 
-unirest.get("https://wordsapiv1.p.rapidapi.com/words/incredible/definitions")
-    .header("X-RapidAPI-Key", process.env.WORDS_API_KEY)
-    .end(function (result) {
-        console.log(result.status, result.headers, result.body);
-    });
+
 
 
 
