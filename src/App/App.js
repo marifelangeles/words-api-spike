@@ -5,6 +5,7 @@ class App extends Component {
   render() {
     return (
       <div >
+        {JSON.stringify()}
         <p>Write a haiku with the word</p>
         <p>intuitive</p>
         <p>adjective</p>
