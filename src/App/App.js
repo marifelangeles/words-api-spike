@@ -61,6 +61,11 @@ class App extends Component {
       return pronunciation.all;
     }
   }
+
+  handleNewWord = () => {
+    console.log('in handleNewWord');
+    this.getRandomWord();
+  }
   
   render() {
    
@@ -68,11 +73,14 @@ class App extends Component {
       <div >
         {JSON.stringify(this.props.word)}
         
-        <p>Write a haiku with the word</p>
-        <p>Word: {this.props.word.word}</p>
-        <p>Part of Speech: {() => this.getPartOfSpeech()}</p>
-        <p>Definition: {this.getDefinition()}</p>
-        <p>Pronunciation: {this.getPronunciation()} </p>
+        <div>Write a haiku with the word</div>
+        <div>Word: {this.props.word.word}</div>
+        <div>Part of Speech: {this.getPartOfSpeech()}</div>
+        <div>Definition: {this.getDefinition()}</div>
+        <div>Pronunciation: {this.getPronunciation()} </div>
+        <div>
+          <button onClick={this.handleNewWord}>New Word</button>
+        </div>
       </div>
     );
   }
