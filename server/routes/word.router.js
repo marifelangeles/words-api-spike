@@ -11,9 +11,9 @@ router.get('/', (req, res) => {
     console.log('in get /word');
     unirest.get("https://wordsapiv1.p.rapidapi.com/words/?random=true")
         .header("X-RapidAPI-Key", process.env.WORDS_API_KEY)
-        .end((result) => {
-            console.log(result.status, result.headers, result.body);
-            res.send(result.body);
+        .end((response) => {
+            console.log('from words api:', response.body);            
+            res.send(response.body);
         });
 });
 
