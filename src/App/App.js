@@ -3,7 +3,9 @@ import './App.css';
 import axios from 'axios';
 import { connect } from 'react-redux';
 import {Grid, Button} from '@material-ui/core';
-// import Word from '../Word/Word';
+// import Word Page components
+import Header from '../Word/Header';
+
 
 class App extends Component {
 
@@ -71,9 +73,7 @@ class App extends Component {
       <div>
         <Grid container spacing={8}>
           <Grid container>
-            <Grid item sm={12}>
-              <p>Write a haiku with the word</p>
-            </Grid>
+            <Header />
           </Grid>
           <Grid container>
             <Grid item sm={12}>
