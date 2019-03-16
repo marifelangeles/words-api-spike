@@ -6,10 +6,10 @@ import { connect } from 'react-redux';
 
 class App extends Component {
 
-  // problem: how to hide definition search process from user
-  componentDidMount() {
-    this.getRandomWord();
-  }
+  // problem: how to hide definition search process from user?
+  // componentDidMount() {
+  //   this.getRandomWord();
+  // }
 
   getRandomWord = () => {
     console.log('getting word from server');
@@ -55,6 +55,12 @@ class App extends Component {
     }
   }
   
+  getPronunciation = () => {
+    const pronunciation = this.props.word.pronunciation;
+    if (pronunciation) {
+      return pronunciation.all;
+    }
+  }
   
   render() {
    
@@ -64,9 +70,9 @@ class App extends Component {
         
         <p>Write a haiku with the word</p>
         <p>Word: {this.props.word.word}</p>
-        <p>Part of Speech: {this.getPartOfSpeech()}</p>
+        <p>Part of Speech: {() => this.getPartOfSpeech()}</p>
         <p>Definition: {this.getDefinition()}</p>
-        <p>Pronunciation: {this.getPronunciation()} {JSON.stringify(this.props.word.pronunciation)}</p>
+        <p>Pronunciation: {this.getPronunciation()} </p>
       </div>
     );
   }
