@@ -2,15 +2,13 @@ import React, { Component } from 'react';
 import './App.css';
 import axios from 'axios';
 import { connect } from 'react-redux';
-
+import {Grid, Button} from '@material-ui/core';
+// import Word from '../Word/Word';
 
 class App extends Component {
 
   // problem: how to hide definition search process from user?
-  // componentDidMount() {
-  //   this.getRandomWord();
-  // }
-
+  
   getRandomWord = () => {
     console.log('getting word from server');
     // get random word for <Word /> in app
@@ -70,17 +68,42 @@ class App extends Component {
   render() {
    
     return (
-      <div >
-        {JSON.stringify(this.props.word)}
-        
-        <div>Write a haiku with the word</div>
-        <div>Word: {this.props.word.word}</div>
-        <div>Part of Speech: {this.getPartOfSpeech()}</div>
-        <div>Definition: {this.getDefinition()}</div>
-        <div>Pronunciation: {this.getPronunciation()} </div>
-        <div>
-          <button onClick={this.handleNewWord}>New Word</button>
-        </div>
+      <div>
+        <Grid container spacing={8}>
+          <Grid container>
+            <Grid item sm={12}>
+              <p>Write a haiku with the word</p>
+            </Grid>
+          </Grid>
+          <Grid container>
+            <Grid item sm={12}>
+              <h1>{this.props.word.word}</h1>
+            </Grid>
+          </Grid>
+          <Grid container spacing={16}>
+            <Grid item sm={6}>
+              <p>{this.getPartOfSpeech()}</p>
+            </Grid>
+            <Grid item sm={6}>
+              <p>{this.getPronunciation()}</p>
+            </Grid>
+          </Grid>
+          <Grid container>
+            <Grid item sm={12}>
+              <p>{this.getDefinition()}</p>
+            </Grid>
+          </Grid>
+          <Grid>
+            <Grid item sm={12}>
+              <Button 
+                onClick={this.handleNewWord}
+                color="primary"
+              >
+                New Word
+              </Button>
+            </Grid>
+          </Grid>
+        </Grid>
       </div>
     );
   }
