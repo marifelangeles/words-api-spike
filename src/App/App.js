@@ -11,15 +11,16 @@ class App extends Component {
     this.getRandomWord();
   }
 
-  // get random word from server/word.router
-  // expect object with up to 4 properties: word, results, syllables, pronunciation
-  // results include definition and part of speech
   getRandomWord = () => {
     console.log('getting word from server');
+    // get random word for <Word /> in app
+    // word will be used in <Haiku />
     axios({
       method: 'GET',
       url: '/word'
     }).then( response => {
+      // expect object with up to 4 properties: 'word', 'results', 'syllables', 'pronunciation'
+      // 'results' include definition and part of speech
       console.log('back from GET', response.data);
       this.props.dispatch({
         type: 'SET_WORD',
@@ -33,7 +34,7 @@ class App extends Component {
 
   getDefinition = () => {
     const wordResults = this.props.word.results;
-    // get random word only if definition exists
+    // get random word only if definition exists --> definition needed for MVP
     // if so, return first definition 
     if (wordResults) {
       console.log('wordResults', wordResults);
@@ -43,6 +44,17 @@ class App extends Component {
       this.getRandomWord();
     }
   }
+
+  getPartOfSpeech = () => {
+    const wordResults = this.props.word.results;
+    // part of speech not necessary for MVP
+    if (wordResults) {
+      if (wordResults[0].partOfSpeech) {
+        return wordResults[0].partOfSpeech;
+      }
+    }
+  }
+  
   
   render() {
    
@@ -52,8 +64,9 @@ class App extends Component {
         
         <p>Write a haiku with the word</p>
         <p>Word: {this.props.word.word}</p>
+        <p>Part of Speech: {this.getPartOfSpeech()}</p>
         <p>Definition: {this.getDefinition()}</p>
-        <p>Pronunciation {JSON.stringify(this.props.word.pronunciation)}</p>
+        <p>Pronunciation: {this.getPronunciation()} {JSON.stringify(this.props.word.pronunciation)}</p>
       </div>
     );
   }
