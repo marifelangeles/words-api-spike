@@ -6,10 +6,14 @@ import { connect } from 'react-redux';
 
 class App extends Component {
 
+  // problem: how to hide definition search process from user
   componentDidMount() {
     this.getRandomWord();
   }
 
+  // get random word from server/word.router
+  // expect object with up to 4 properties: word, results, syllables, pronunciation
+  // results include definition and part of speech
   getRandomWord = () => {
     console.log('getting word from server');
     axios({
@@ -26,17 +30,11 @@ class App extends Component {
     });
   }
 
-  // getDefinition = () => {
-  //   const results = this.props.word.results;
-  //   const definition = results.find(item => results.definition);
-  //   console.log(definition);
-
-  // }
 
   getDefinition = () => {
     const wordResults = this.props.word.results;
-
-    // find random word with definition only
+    // get random word only if definition exists
+    // if so, return first definition 
     if (wordResults) {
       console.log('wordResults', wordResults);
       const definition = wordResults[0].definition;
@@ -47,23 +45,14 @@ class App extends Component {
   }
   
   render() {
-    
-    // const results = this.props.word.results;
-    // const definition = results[0].definition;
-    // console.log('hello', results);
-    // // console.log('definition', definition);
-    // console.log('type', typeof results);
-    
-    
-    
-
+   
     return (
       <div >
         {JSON.stringify(this.props.word)}
         
         <p>Write a haiku with the word</p>
-        <p>Word {JSON.stringify(this.props.word.word)}</p>
-        <p>Definition {this.getDefinition()}{/*JSON.stringify(this.props.word.results)*/}</p>
+        <p>Word: {this.props.word.word}</p>
+        <p>Definition: {this.getDefinition()}</p>
         <p>Pronunciation {JSON.stringify(this.props.word.pronunciation)}</p>
       </div>
     );
