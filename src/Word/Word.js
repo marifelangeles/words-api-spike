@@ -1,24 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Grid, Button } from '@material-ui/core';
+import { Grid } from '@material-ui/core';
 import Header from './Header';
 import SelectedWord from './SeletedWord';
 import PartOfSpeech from './PartOfSpeech';
 import Pronunciation from './Pronunciation';
 import Definition from './Definition';
+import NewWordButton from './NewWordButton';
 
 
 
 class Word extends Component {
 
-
-    handleNewWord = () => {
-        console.log('in handleNewWord');
-        this.props.getRandomWord();
-    }
-
     render() {
-
         return (
             <div>
                 <Grid container spacing={8}>
@@ -35,15 +29,8 @@ class Word extends Component {
                     <Grid container>
                         <Definition getRandomWord={this.props.getRandomWord}/>
                     </Grid>
-                    <Grid>
-                        <Grid item sm={12}>
-                            <Button
-                                onClick={this.handleNewWord}
-                                color="primary"
-                            >
-                                New Word
-                            </Button>
-                        </Grid>
+                    <Grid container>
+                        <NewWordButton getRandomWord={this.props.getRandomWord}/>
                     </Grid>
                 </Grid>
             </div>
