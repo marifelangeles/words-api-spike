@@ -5,26 +5,12 @@ import Header from './Header';
 import SelectedWord from './SeletedWord';
 import PartOfSpeech from './PartOfSpeech';
 import Pronunciation from './Pronunciation';
+import Definition from './Definition';
 
 
 
 class Word extends Component {
 
-    getDefinition = () => {
-        const wordResults = this.props.word.results;
-        // get random word only if definition exists --> definition needed for MVP
-        // if so, return first definition 
-        if (wordResults) {
-            console.log('wordResults', wordResults);
-            const definition = wordResults[0].definition;
-            return definition;
-        } else {
-            this.props.getRandomWord();
-        }
-    }
-
-    
-    
 
     handleNewWord = () => {
         console.log('in handleNewWord');
@@ -47,9 +33,7 @@ class Word extends Component {
                         <Pronunciation />
                     </Grid>
                     <Grid container>
-                        <Grid item sm={12}>
-                            <p>{this.getDefinition()}</p>
-                        </Grid>
+                        <Definition getRandomWord={this.props.getRandomWord}/>
                     </Grid>
                     <Grid>
                         <Grid item sm={12}>
@@ -58,7 +42,7 @@ class Word extends Component {
                                 color="primary"
                             >
                                 New Word
-              </Button>
+                            </Button>
                         </Grid>
                     </Grid>
                 </Grid>
