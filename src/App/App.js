@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
-import './App.css';
 import axios from 'axios';
 import { connect } from 'react-redux';
-import {Grid, Button} from '@material-ui/core';
 // import Word Page components
-import Header from '../Word/Header';
-
+import Word from '../Word/Word';
 
 class App extends Component {
 
   // problem: how to hide definition search process from user?
-  
+  componentDidMount() {
+    this.getRandomWord();
+  }
+
   getRandomWord = () => {
     console.log('getting word from server');
     // get random word for <Word /> in app
@@ -32,78 +32,11 @@ class App extends Component {
   }
 
 
-  getDefinition = () => {
-    const wordResults = this.props.word.results;
-    // get random word only if definition exists --> definition needed for MVP
-    // if so, return first definition 
-    if (wordResults) {
-      console.log('wordResults', wordResults);
-      const definition = wordResults[0].definition;
-      return definition;
-    } else {
-      this.getRandomWord();
-    }
-  }
-
-  getPartOfSpeech = () => {
-    const wordResults = this.props.word.results;
-    // part of speech not necessary for MVP
-    if (wordResults) {
-      if (wordResults[0].partOfSpeech) {
-        return wordResults[0].partOfSpeech;
-      }
-    }
-  }
-  
-  getPronunciation = () => {
-    const pronunciation = this.props.word.pronunciation;
-    if (pronunciation) {
-      return pronunciation.all;
-    }
-  }
-
-  handleNewWord = () => {
-    console.log('in handleNewWord');
-    this.getRandomWord();
-  }
-  
   render() {
    
     return (
       <div>
-        <Grid container spacing={8}>
-          <Grid container>
-            <Header />
-          </Grid>
-          <Grid container>
-            <Grid item sm={12}>
-              <h1>{this.props.word.word}</h1>
-            </Grid>
-          </Grid>
-          <Grid container spacing={16}>
-            <Grid item sm={6}>
-              <p>{this.getPartOfSpeech()}</p>
-            </Grid>
-            <Grid item sm={6}>
-              <p>{this.getPronunciation()}</p>
-            </Grid>
-          </Grid>
-          <Grid container>
-            <Grid item sm={12}>
-              <p>{this.getDefinition()}</p>
-            </Grid>
-          </Grid>
-          <Grid>
-            <Grid item sm={12}>
-              <Button 
-                onClick={this.handleNewWord}
-                color="primary"
-              >
-                New Word
-              </Button>
-            </Grid>
-          </Grid>
-        </Grid>
+        <Word getRandomWord={this.getRandomWord}/>
       </div>
     );
   }
