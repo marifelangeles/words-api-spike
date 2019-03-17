@@ -4,6 +4,7 @@ import { Grid, Button } from '@material-ui/core';
 import Header from './Header';
 import SelectedWord from './SeletedWord';
 import PartOfSpeech from './PartOfSpeech';
+import Pronunciation from './Pronunciation';
 
 
 
@@ -22,22 +23,8 @@ class Word extends Component {
         }
     }
 
-    getPartOfSpeech = () => {
-        const wordResults = this.props.word.results;
-        // part of speech not necessary for MVP
-        if (wordResults) {
-            if (wordResults[0].partOfSpeech) {
-                return wordResults[0].partOfSpeech;
-            }
-        }
-    }
-
-    getPronunciation = () => {
-        const pronunciation = this.props.word.pronunciation;
-        if (pronunciation) {
-            return pronunciation.all;
-        }
-    }
+    
+    
 
     handleNewWord = () => {
         console.log('in handleNewWord');
@@ -57,9 +44,7 @@ class Word extends Component {
                     </Grid>
                     <Grid container spacing={16}>
                         <PartOfSpeech />
-                        <Grid item sm={6}>
-                            <p>{this.getPronunciation()}</p>
-                        </Grid>
+                        <Pronunciation />
                     </Grid>
                     <Grid container>
                         <Grid item sm={12}>
