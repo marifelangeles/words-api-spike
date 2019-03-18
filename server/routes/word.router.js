@@ -7,15 +7,25 @@ const router = express.Router();
 
 
 // https://stackoverflow.com/questions/52561002/make-unirest-get-request-with-node-js-express
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     console.log('in get /word');
-    unirest.get("https://wordsapiv1.p.rapidapi.com/words/?random=true")
-        .header("X-RapidAPI-Key", process.env.WORDS_API_KEY)
-        .end((response) => {
-            console.log('from words api:', response.body);            
+    for (let i = 0; i < 1000; i++) {
+        const response = await unirest.get("https://wordsapiv1.p.rapidapi.com/words/?random=true")
+            .header("X-RapidAPI-Key", process.env.WORDS_API_KEY)
+            // https://stackoverflow.com/questions/9577611/http-get-request-in-node-js-express
+            // .query("word")
+            // .query("results")
+        console.log('response from api:', response.body);
+        // get random word only if definition exists --> definition needed for MVP
+        // if so, return first definition 
+        const wordResults = response.body.results;
+        if (wordResults && wordResults[0] && wordResults[0].definition) {
             res.send(response.body);
-        });
+            break;
+        }
+    }
 });
+
 
 
 
